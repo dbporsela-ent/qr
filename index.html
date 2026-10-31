@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acar Belum Di Mulai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --accent: #ff3b3b;
+      --card-radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 0%, #2a0a0a 0%, transparent 55%),
+        var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* Judul */
+    h1 {
+      font-family: 'Anton', Impact, sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: 1px;
+      line-height: 1.1;
+      font-size: clamp(2rem, 9vw, 3.4rem);
+      text-shadow: 0 0 24px rgba(255, 59, 59, 0.45);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: -10px;
+    }
+    .badge::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(255,59,59,.7); }
+      70%  { box-shadow: 0 0 0 10px rgba(255,59,59,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,59,59,0); }
+    }
+
+    /* Kotak poster: ganti rasio lewat --ratio (16/9, 9/16, 4/5, 1/1) */
+    .poster {
+      --ratio: 4 / 5;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: var(--ratio);
+      background: #fff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.08);
+    }
+    .poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .poster .placeholder {
+      color: #111;
+      text-align: center;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      padding: 16px;
+    }
+
+    /* Kotak video YouTube 16:9 */
+    .video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(255, 59, 59, 0.15);
+    }
+    .video iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    footer {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    @media (min-width: 700px) {
+      body { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Acar Belum Di Mulai</h1>
+    <div class="badge">Segera Dimulai</div>
+
+    <!-- POSTER ACARA -->
+    <!-- Ganti rasio dengan mengubah --ratio: 16 / 9, 9 / 16, 4 / 5, atau 1 / 1 -->
+    <section class="poster" style="--ratio: 4 / 5;">
+      <!-- Ganti src dengan file/URL poster Anda, lalu hapus div.placeholder -->
+      <img src="img/1.jpg" alt="Poster Acara">
+    </section>
+
+    <!-- LINK YOUTUBE AUTO PLAY 16:9 -->
+    <!-- Ganti VIDEO_ID dengan ID video YouTube Anda (contoh: dQw4w9WgXcQ) -->
+    <section class="video">
+      <iframe
+        id="yt"
+        title="YouTube video player"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen></iframe>
+    </section>
+
+    <script>
+      // Tempel link YouTube biasa di sini (watch?v=, youtu.be/, atau embed/) - otomatis diubah ke format embed
+      const YOUTUBE_LINK = "https://youtu.be/qMIQC7_AkIg?si=0FGYbv7oEGfjGC5Z";
+
+      function toEmbed(url) {
+        const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+        return m ? "https://www.youtube.com/embed/" + m[1] +
+          "?autoplay=1&mute=1&playsinline=1&rel=0" : "";
+      }
+      document.getElementById("yt").src = toEmbed(YOUTUBE_LINK);
+    </script>
+
+    <footer>&copy; 2026 DEP. MEDIA PORSELA</footer>
+  </main>
+</body>
+</html>
